@@ -791,3 +791,34 @@ To make `dim_geography` idempotent without full refresh, add a uniqueness rule s
 ALTER TABLE dim_geography
 ADD CONSTRAINT uq_dim_geography UNIQUE (zip_prefix, city, state_code, latitude, longitude);
 ```
+
+5️⃣ Create the Data Warehouse Relationships (Very Important)
+
+In Power BI Model View create relationships.
+
+fact_sales
+fact_sales.customer_key → dim_customer.customer_key
+fact_sales.seller_key → dim_seller.seller_key
+fact_sales.product_key → dim_product.product_key
+fact_sales.order_status_key → dim_order_status.order_status_key
+fact_sales.date_key_purchase → dim_date.date_key
+fact_sales.date_key_delivered → dim_date.date_key
+fact_payments
+fact_payments.customer_key → dim_customer.customer_key
+fact_payments.payment_type_key → dim_payment_type.payment_type_key
+fact_payments.order_status_key → dim_order_status.order_status_key
+fact_payments.date_key_purchase → dim_date.date_key
+fact_reviews
+fact_reviews.customer_key → dim_customer.customer_key
+fact_reviews.seller_key → dim_seller.seller_key
+fact_reviews.product_key → dim_product.product_key
+fact_reviews.order_status_key → dim_order_status.order_status_key
+fact_reviews.date_key_review → dim_date.date_key
+
+
+and also 
+
+fact_sales.geo_customer_key  →  dim_geography.geo_key
+fact_sales.geo_seller_key  →  dim_geography.geo_key
+
+Use Many-to-One (*:1) relationships from Fact → Dimension.
