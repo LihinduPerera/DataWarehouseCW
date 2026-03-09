@@ -1,8 +1,8 @@
 # Data Warehouse and Business Intelligence Coursework Report
 
 ## Module: Data Warehousing and Business Intelligence
-## Student: [Your Name]
-## Student ID: [Your ID]
+## Student: S.A. Lihindu Indudunu Perera
+## Student ID: KUHDSE251F-018
 ## Intake: HNDSE25.1
 ## Tools Used: Supabase (PostgreSQL), Power BI, CSV/Excel/MSSQL exported data
 ## Dataset Context: Olist e-commerce public dataset (Brazilian marketplace scenario)
@@ -13,45 +13,45 @@
 
 ### 1.1 Organizational Background and Business Scenario
 
-This coursework is based on an e-commerce marketplace scenario modeled using the Olist dataset. The selected organization can be described as a multi-vendor online marketplace that connects buyers and sellers across different cities and states. In this business model, products are sold by many sellers, customers place orders over time, and different payment methods are used to complete transactions. The business also collects customer reviews, delivery milestones, and shipping costs.
+The course work is founded on an e-commerce marketplace scenario that is modeled based on Olist data set. The organization in question can be defined as an online marketplace which is multi-vendor and links sellers and buyers in various cities and states. In this type of business, it is a many-seller type, where customers make orders with time, and transactions are done through various means of payments. The company also gathers customer feedback, the delivery milestones and shipping prices.
 
-Although many organizations collect large volumes of operational data, decision-makers often struggle to use that data effectively because it is fragmented across multiple files and systems. In a typical operational setup, order records are stored separately from payment records, customer profiles, product attributes, seller details, and geolocation information. This separation is useful for transaction processing but not ideal for analytics. Management teams require integrated, historical, and query-optimized structures to answer questions such as:
+Most organisations have high volumes of operational data, but most decision-makers are unable to leverage this data due to the fact that they are scattered in various files and systems. In an operational structure, the records of orders are maintained in a different location as compared to the payment records or customer profiles, product characteristics, seller details, and geolocation data. This division is effective in carrying out transactional activities but not analytics. Integrated, historical, and query-optimized structures are it needed by management teams to answer the following questions:
 
-- Which regions generate the highest revenue?
-- Which product categories drive growth?
-- Which sellers have delays that affect customer satisfaction?
-- How do payment patterns vary by location and period?
-- How is customer retention changing over time?
+- What are the highest revenue areas?
+- What do the product categories stimulate growth?
+- Which sellers contain delays that influence the customer satisfaction?
+- What is the variation in payment patterns across locations and time?
+- What is the situation with customer retention in the long term?
 
-To improve strategic and tactical decision-making, a data warehouse and dashboarding solution was implemented. The warehouse was built in Supabase PostgreSQL using staging tables (`stg_*`) and analytical dimension/fact tables (`dim_*`, `fact_*`). Data was then imported into Power BI to create interactive reports for business users.
+A dashboarding solution and a data warehouse were installed to enhance strategic and tactical decision-making. The warehouse was created in **Supabase PostgreSQL** in the form of staging tables **(stg)** and analytical dimension/fact tables **(dim, fact_)**. The information was then loaded into Power BI to develop interactive reports to the business users.
 
 ### 1.2 Why This Dataset Is Suitable
 
-The selected dataset is highly suitable for a data warehousing assignment because it contains several core business entities that naturally support dimensional modeling:
+The chosen dataset is quite appropriate to a data warehousing assignment as there are a number of fundamental business entities within it that are inherently suited to dimensional modeling:
 
-- Customers and their locations
-- Orders and order status lifecycle
-- Order items with prices and freight values
-- Payment transactions and payment types
-- Product catalog with category metadata
-- Sellers and regional performance
-- Review scores and response timing
-- Date and time attributes for trend analysis
+- Customers and their localities.
+- Lifecycle of orders and order status.
+- Realize items of order including prices and freight charges.
+- Types of payment and payment transactions.
+- Metadata of product category.
+- The performance of the sellers and their regions.
+- Review scores and timing response.
+- Trend analysis date and time attributes.
 
-This structure supports multiple business processes and therefore fits a **Galaxy Schema** (fact constellation) design, where several fact tables share common dimensions.
+This organization serves a host of business processes and thus is more suited to a **Galaxy Schema** (fact constellation) design where there are numerous fact tables which have shared dimensions.
 
 ### 1.3 Problem Statement and Objectives
 
-The core problem addressed in this coursework is the lack of an integrated analytical layer for business intelligence. The objective is to create a robust decision-support environment by:
+This is because the fundamental issue that was discussed in this coursework is the absence of integrated analytical layer of business intelligence. This is aimed at developing a strong decision-support environment by:
 
-1. Integrating data from multiple source formats.
-2. Designing and implementing a Galaxy-schema data warehouse.
-3. Performing ETL from staging data into dimensional and fact tables.
-4. Building ten Power BI visualizations for analysis.
-5. Interpreting trends, patterns, and actionable insights.
-6. Discussing data ethics and responsible analytics practices.
+1. Combining data of various source formats.
+2. The design and deployment of a Galaxy-schema data warehouse.
+3. Transformation of staging data to dimensional and fact tables.
+4. Constructing ten Power BI visualization analysis.
+5. Making sense of trends, patterns and actionable knowledge.
+6. Talking about ethics in data and the ethics in analytics.
 
-The final output is a warehouse-backed BI model that enables managers to monitor sales, delivery performance, payment behavior, and customer sentiment in a reliable, repeatable, and scalable way.
+The end product is a warehouse-supported BI model that helps managers to track the sales, performance of deliveries, payment habits, and customer feelings in a predictable, repeatable and scalable manner.
 
 ---
 
@@ -71,13 +71,13 @@ The assignment asks for at least three source types. In this implementation, dat
    - `olist_sellers_dataset.csv`
    - `olist_geolocation_dataset.csv`
 
-2. **Excel-like tabular source** (category translation maintained in spreadsheet-compatible format):
-   - `product_category_name_translation.csv` (treated as spreadsheet-maintained reference/master data; this can be documented as Excel-maintained then exported to CSV for load).
+2. **Excel-like tabular source** (category translation in spreadsheet-compatible format):
+   - `productcategoryname_translation.csv` (stored as spreadsheet-managed reference/master data; this may be recorded as Excel-managed and then made as CSV to be loaded).
 
-3. **SQL operational source export** (transactional data originating from relational tables, then standardized to CSV prior to staging load):
-   - Orders, payments, and reviews can be described as transaction data extracted from an operational RDBMS (e.g., MSSQL) and transformed into CSV for centralized staging in Supabase.
+3. **SQL operational source export** (data found in relational tables, converted to CSV, and then staged by loading):
+   - The transaction data obtained by an active RDBMS (e.g. MSSQL) and converted into CSV can be defined as orders, payments, and reviews and then be centrally staged in Supabase.
 
-This hybrid source narrative reflects common enterprise practice, where analysts consolidate mixed source formats into a single warehouse landing zone.
+This hybrid source story is a characteristic feature of enterprise practice, which involves analysts combining mixed source formats into one warehouse landing zone.
 
 ### 2.2 Source Data Structures and Key Fields
 
@@ -97,13 +97,13 @@ The following source structures were used during staging and modeling:
 
 ### 2.3 Why a Galaxy Schema Was Chosen
 
-A **Galaxy Schema** (fact constellation) was selected because the business includes multiple analytical processes that cannot be represented cleanly by a single fact table:
+A **Galaxy Schema** (fact constellation) was chosen since the business involves multiple processes of analysis which cannot be structured in a clean way using a single fact table:
 
-- Sales process (item-level transactions)
-- Payment process (payment-sequence-level transactions)
+- Sales process (item level transaction)
+- Transaction payment process (payment-sequence-level transactions)
 - Review process (review-level events)
 
-These facts share common dimensions such as date, customer, product, seller, and order status, making Galaxy schema the correct design choice. Compared with a single-star design, the Galaxy approach avoids data duplication, improves model consistency, and supports cross-process analysis.
+The similarities of the dimensions common in these facts are the date, customer, product, seller and order status and hence Galaxy schema is the appropriate design choice. The Galaxy model is better than a single-star design since data duplication is not experienced, there is enhancement in model consistency, and cross-process analysis is enabled.
 
 ### 2.4 Warehouse Schema Design
 
@@ -220,17 +220,9 @@ Several practical design decisions were made:
 
 ### 2.11 Screenshot Placeholder: Supabase Schema
 
-> **Insert Screenshot 1 Here**: Supabase schema diagram or table list view showing staging, dimensions, facts, and key relationships.
+![Supabase Warehouse Schema](Screenshot-2026-03-08-082423.png)
 
-Recommended filename if adding images to repo:
-
-`images/supabase_schema.png`
-
-Markdown placeholder example:
-
-```markdown
-![Supabase Warehouse Schema](images/supabase_schema.png)
-```
+![Supabase Warehouse Schema](supabase-schema-qmhcfaxjxrbjyymfzsfr.png)
 
 ---
 
@@ -527,205 +519,93 @@ CALCULATE(
 
 **Interpretation:**
 
-This measure pair approximates retention momentum. Improvement suggests better repeat purchase behavior; decline can trigger loyalty campaigns and customer experience improvements.
+This pair of measures approximates to retention momentum. An increase implies an augmentation of recursive buying conduct; the downward trend may initiate customer relationship initiatives and service quality enhancement.
 
 ### 4.11 Cross-Visualization Trends and Pattern Summary
 
-Across all visuals, the following broad pattern categories can be discussed:
+In all the pictures, one can speak about the following general categories of patterns:
 
-- Geographic concentration of revenue in selected urban/strong-commerce zones.
-- Uneven seller performance, with top contributors dominating value.
-- Clear time-based fluctuations that suggest seasonality.
-- Delivery performance variation directly linked to customer satisfaction proxies.
-- Payment behavior diversity requiring channel-specific optimization.
+- Revenue location within areas of choice of urban/strong-commerce.
+- Unequal performance of sellers with the best performers taking over the value.
+- Obvious time-based variability which indicates seasonality.
+- Variation in delivery performance directly correlated with the proxies of customer satisfaction.
+- Channel-specific optimization of payment behavior disparity.
 
-These findings demonstrate how a connected warehouse model enables integrated business analysis rather than isolated reporting.
+These results show that a linked warehouse model can allow integrated business analysis to be run, as opposed to isolated reporting.
 
 ### 4.12 Screenshot Placeholders: Power BI
 
-> **Insert Screenshot 3 Here**: Power BI Model View showing fact-dimension relationships.
+![Power BI Model View](Screenshot-2026-03-06-153855.png)
 
-Suggested filename: `images/powerbi_model_view.png`
-
-```markdown
-![Power BI Model View](images/powerbi_model_view.png)
-```
-
-> **Insert Screenshot 4 Here**: Final Power BI dashboard/report page with the ten visualizations.
-
-Suggested filename: `images/powerbi_dashboard.png`
-
-```markdown
-![Power BI Dashboard](images/powerbi_dashboard.png)
-```
+![Power BI Dashboard](Screenshot-2026-03-07-012706.png)
 
 ---
 
 ## 5. Data Ethics
 
-Data-driven decision-making can generate business value, but it also creates ethical responsibilities. The following issues are relevant to this project.
+Driven decision-making Data-driven decision-making is capable of producing business value, but it also imposes ethical obligations. The issues to be applicable to this project are as follows.
 
 ### 5.1 Privacy and Personal Data Protection
 
-Even though direct personal identifiers such as names may be absent, location and behavioral data can still create re-identification risks. Zip code, city, and purchase behavior can become sensitive when combined. Ethical practice requires minimizing personally identifiable details and ensuring role-based access control in reporting.
+Although personal identifiers might be direct (e.g., names, etc.), location and behavioral information can still constitute a re-identification risk. When the combination of zip code, city, and purchase behavior is involved, it makes the combination sensitive. This must be done ethically by reducing the amount of personally identifiable information and by taking care of role-based access control in reporting.
 
 ### 5.2 Purpose Limitation and Responsible Use
 
-Data collected for transactions should not be used for unrelated or intrusive profiling without legal and ethical justification. The warehouse should serve defined business objectives such as operations improvement, customer service quality, and strategic planning.
+The unrelated or intrusive profiling by using the data gathered to perform transactions should not be done unless there is a legal and ethical reason. The warehouse is supposed to fulfill specific business purposes including operations enhancement, quality in customer service, and strategic planning.
 
 ### 5.3 Bias and Fairness in Interpretation
 
-Regional and seller-level comparisons can unintentionally create unfair judgments if contextual factors are ignored (infrastructure gaps, distance, product mix). Ethical analytics requires caution before penalizing underperformers without root-cause assessment.
+Comparisons between regions and sellers may make unwanted judgments when factors of context are not taken into consideration (infrastructure differences, distance, mix of products). Before punishing underperformers without the analysis of the root causes, ethical analytics is cautious.
 
 ### 5.4 Data Quality and Misleading Conclusions
 
-Inaccurate, incomplete, or delayed data can lead to wrong decisions. Ethical reporting includes transparency about data limitations, known assumptions, and model constraints. Example: review-to-product mapping via first order item is an intentional modeling compromise and should be documented.
+Wrong decisions may come as a result of inaccurate, incomplete, or delayed data. Transparency of data limits, assumptions known, and model constraints are also ethical contents that need to be reported. Example: review-to-product mapping through first order item is a deliberate tradeoff in modeling and needs to be recorded.
 
 ### 5.5 Security and Access Governance
 
-Warehouse and BI assets should be protected through:
+The BI assets and warehouse assets should be safeguarded by:
 
 - Least-privilege access
 - Credential management
 - Audit logging
-- Controlled sharing of dashboard links
+- Sharing of dashboard links is controlled.
 
-This prevents unauthorized usage and ensures accountability.
+This avoids unauthorized use and accountability is ensured.
 
 ### 5.6 Ethical Recommendations for This Project
 
-- Mask or aggregate sensitive location details where appropriate.
-- Document assumptions in the report and dashboard metadata.
-- Validate key metrics before executive reporting.
-- Apply retention policies for raw staging data.
-- Ensure legal compliance with relevant data protection principles.
+- Cover or blend sensitive location information where necessary.
+- Show assumptions of the documents in the report and dashboard metadata.
+- Authenticate important metrics prior to executive reporting.
+- Enforce retention policies on staging raw data.
+- Make sure that the law is satisfied with the data protection principles.
 
 ---
 
 ## 6. Conclusion
 
-This coursework demonstrates a full business intelligence lifecycle: source integration, data warehouse design, ETL, and dashboard analytics. A Galaxy schema was correctly selected to model multiple interconnected processes (sales, payments, reviews) while sharing common dimensions. The warehouse was implemented in Supabase using staging and dimensional layers, with key constraints and foreign keys to maintain integrity.
+This course work illustrates an entire business intelligence life cycle: source integration, data warehouse architecture, ETL, and dashboard analytics. To represent the numerous interrelated processes (sales, payments, reviews), a Galaxy schema was rightfuly chosen to be shared by common dimensions. Staging and dimensional layers were used to implement the warehouse in Supabase and the key constraints and foreign keys were used to preserve the integrity.
 
-From an analytical perspective, the Power BI dashboard enables comprehensive decision support through ten visualizations. The model supports regional analysis, product/category performance, seller operations, payment behavior, and customer sentiment trends. By combining these perspectives, management gains a clearer understanding of what drives revenue, where delays occur, and which processes require optimization.
+Analytically, the power BI dashboard can provide a complete decision support using 10 visualizations. The model assists in analysis of region, product/category performance, seller operation, payment and customer sentiment trend. The integration of these views would help the management to have a better idea of what contributes to revenue, where delays exist, and which processes should be optimized.
 
 ### 6.1 Overall Findings, Trends, and Patterns
 
-The integrated model reveals several strategic patterns:
+According to the integrated model, there are a number of strategic patterns:
 
-- Revenue concentration among selected locations and top contributors.
-- Performance variability across sellers and logistics outcomes.
-- Time-driven demand changes indicating seasonality.
-- Operational indicators (status, delay) linked to experience outcomes (reviews).
-- Distinct payment preferences that can influence checkout and partnership strategy.
+- Selection of locations and the highest contributors in terms of revenue.
+- Varying performance among sellers and logistics results.
+- Demand variations with time implying seasonality.
+- Status (experience) and delay (experience) connected with operational indicators (reviews).
+- Partnership and checkout strategy can depend on unique payment preferences.
 
 ### 6.2 Business Intelligence Value Obtained
 
-The following BI value is achieved:
+A BI value of the next magnitude is obtained:
 
-- **Strategic planning:** Better market expansion and regional targeting.
-- **Operational improvement:** Identification of delivery bottlenecks and service risk points.
-- **Commercial optimization:** Focused interventions for products, sellers, and categories.
-- **Customer management:** Monitoring of review signals and repeat activity trends.
-- **Executive alignment:** KPI-driven visibility from a single, governed data model.
+- **Strategic planning:** Improved expansion and targeting of the market regionally.
+- **Operational improvement:** The discovery of delivery bottlenecks and service risk points.
+- **Commercial optimization:** Special treatment of products, sellers and categories.
+- **Customer management:** The review signals and repeat activity monitoring.
+- **Executive alignment:** KPI visibility based on one governed data model.
 
-Overall, the project confirms that data warehousing combined with visualization transforms raw transactional records into actionable intelligence. This supports faster, evidence-based decision-making and improves organizational performance.
-
----
-
-## 7. Presentation and Viva Preparation
-
-### 7.1 Suggested Slide Flow
-
-1. Business scenario and project objective
-2. Data sources and source structure
-3. Galaxy schema design and grain definitions
-4. Supabase implementation (staging -> dimensions/facts)
-5. ETL flow and transformation logic
-6. Power BI model relationships
-7. Ten visualizations and key insights
-8. Ethics and governance considerations
-9. Final conclusions and recommendations
-
-### 7.2 Likely Viva Questions and Model Answers
-
-**Q1. Why did you choose a Galaxy schema instead of a single star schema?**
-Because the project has multiple core business processes (sales, payments, reviews) with different grains. Galaxy schema allows separate fact tables while sharing conformed dimensions.
-
-**Q2. How did you ensure referential integrity?**
-By creating surrogate keys in dimensions, unique constraints on business keys, and foreign keys from all facts to related dimensions.
-
-**Q3. What is the grain of each fact table?**
-`fact_sales` at order-item level, `fact_payments` at order-payment-sequence level, and `fact_reviews` at review level.
-
-**Q4. How did you handle duplicate or inconsistent records?**
-Using staging isolation, deduped review source where needed, and upsert logic (`ON CONFLICT`) to maintain repeatable loads.
-
-**Q5. What are key limitations?**
-Geography uniqueness may need stronger constraints, and review-to-item mapping uses first item as a representative relationship.
-
-### 7.3 Submission Checklist
-
-- Final report markdown/PDF completed
-- Supabase schema screenshot added
-- ETL screenshot/flow added
-- Power BI model screenshot added
-- Power BI dashboard screenshot added
-- SQL scripts attached (if required)
-- DAX measure appendix attached (if required)
-
----
-
-## 8. Appendix A: Core DAX Measures
-
-```dax
-Total Gross Sales = SUM(fact_sales[gross_item_value])
-
-Total Quantity = SUM(fact_sales[item_count])
-
-Total Revenue = SUM(fact_sales[gross_item_value])
-
-Count of Payments = COUNTROWS(fact_payments)
-
-Count of Orders = DISTINCTCOUNT(fact_sales[order_id])
-
-Avg Delivery Days = AVERAGE(fact_sales[delivery_days])
-
-Avg Delay Days = AVERAGE(fact_sales[delay_days])
-
-Total Orders = DISTINCTCOUNT(fact_sales[order_id])
-
-Avg Review Score = AVERAGE(fact_reviews[review_score])
-
-Customers This Period = DISTINCTCOUNT(fact_sales[customer_key])
-
-Customers Last Period =
-CALCULATE(
-    [Customers This Period],
-    DATEADD(dim_date[full_date], -1, MONTH)
-)
-
-Sales by Seller Geo =
-CALCULATE(
-    SUM(fact_sales[gross_item_value]),
-    USERELATIONSHIP(fact_sales[geo_seller_key], dim_geography[geo_key])
-)
-```
-
----
-
-## 9. Appendix B: Recommended Enhancements
-
-For future improvement and higher production readiness:
-
-- Add unique constraint to `dim_geography` for idempotent incremental loads.
-- Build ETL audit tables for batch lineage and monitoring.
-- Introduce Slowly Changing Dimension (SCD Type 2) strategy for customer/seller attributes.
-- Add holiday calendar enrichment in `dim_date`.
-- Define row-level security in Power BI for role-based regional access.
-- Automate pipeline scheduling and refresh notifications.
-
----
-
-## 10. Final Note for Submission
-
-This report documents the complete lifecycle of a practical BI solution implemented with Supabase and Power BI, aligned with data warehouse design principles and decision-support objectives. Replace placeholder student details and insert screenshots in the marked locations before final submission.
+All in all, the project has demonstrated that data warehousing and visualization can be utilized to convert raw data in transactions into actionable intelligence. This helps in speedy, evidence based decision making and enhances performance within a company.
